@@ -47,6 +47,22 @@ export default function Home() {
     });
     const data = await response.json();
   };
+  const makePayment = async () => {
+    const paymentDetails = {
+      campaignId: "46cJbalP0fOYV5NfTGjY",
+      paymentId: "2iidf345dsfgdf67654354gfdgf22354o",
+      donater: "Rajmohan Chaudhary",
+      donation_amount: 130,
+    };
+    const response = await fetch("/api/addPaymentDetails", {
+      method: "POST",
+      body: JSON.stringify({ paymentDetails }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const data = await response.json();
+  };
 
   return (
     <div>
@@ -58,6 +74,7 @@ export default function Home() {
         </div>
       ))}{" "}
       <button onClick={saveCampaign}>Save Campaign</button>
+      <button onClick={makePayment}>Make Payment</button>
     </div>
   );
 }
