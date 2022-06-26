@@ -7,6 +7,7 @@ import firebase from "firebase/compat/app";
 import { data } from "autoprefixer";
 export default function Home() {
   const [info, setInfo] = useState([]);
+  const [paymentDets, setPaymentDets] = useState([]);
 
   let shouldRun = useRef(true);
   useEffect(() => {
@@ -31,8 +32,7 @@ export default function Home() {
       patient_age: 43,
       patient_description: "Really needs your help",
       patient_gender: "male",
-      patient_image:
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/0/09/Depiction_of_a_tuberculosis_patient.png/305px-Depiction_of_a_tuberculosis_patient.png",
+
       patient_name: "Pankaj Das",
       relation: "Uncle",
       requester_contact: 8325467432,
@@ -49,7 +49,7 @@ export default function Home() {
   };
   const makePayment = async () => {
     const paymentDetails = {
-      campaignId: "46cJbalP0fOYV5NfTGjY",
+      campaignId: "QFDYZyw2JcPrXsmn98iI",
       paymentId: "2iidf345dsfgdf67654354gfdgf22354o",
       donater: "Rajmohan Chaudhary",
       donation_amount: 120,
@@ -63,6 +63,11 @@ export default function Home() {
     });
     const data = await response.json();
   };
+  const getPaymentDetails = async () => {
+    const response = await fetch("/api/getPaymentDetails");
+    const data = await response.json();
+    setPaymentDets(data);
+  };
 
   return (
     <div>
@@ -73,8 +78,14 @@ export default function Home() {
           <div>{data.Title}</div>
         </div>
       ))}{" "}
+      {paymentDets.map((data) => (
+        <div>
+          <div>{data.donater}</div>
+        </div>
+      ))}{" "}
       <button onClick={saveCampaign}>Save Campaign</button>
       <button onClick={makePayment}>Make Payment</button>
+      <button onClick={getPaymentDetails}>Make Payment</button>
     </div>
   );
 }

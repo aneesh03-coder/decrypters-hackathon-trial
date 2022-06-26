@@ -1,4 +1,5 @@
 import { db } from "../../firebase";
+import firebase from "firebase/compat/app";
 
 export default async function handler(req, res) {
   const campaignId = req.body.paymentDetails.campaignId;
@@ -8,7 +9,10 @@ export default async function handler(req, res) {
       .collection("campaigns")
       .doc(campaignId)
       .collection("payments")
-      .add(req.body.paymentDetails);
+      .add({
+        ...req.body.paymentDetails,
+        timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+      });
     return res.status(201).json({
       message: "Successfully saved to database",
       data: req.body.paymentDetails,
