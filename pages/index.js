@@ -52,7 +52,7 @@ export default function Home() {
       campaignId: "46cJbalP0fOYV5NfTGjY",
       paymentId: "2iidf345dsfgdf67654354gfdgf22354o",
       donater: "Rajmohan Chaudhary",
-      donation_amount: 130,
+      donation_amount: 120,
     };
     const response = await fetch("/api/addPaymentDetails", {
       method: "POST",
